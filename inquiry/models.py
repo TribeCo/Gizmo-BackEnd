@@ -67,11 +67,11 @@ class ForeignOrder(models.Model):
 
     @property
     def toman_price(self):
-        return self.derham * self.price 
+        return int(self.derham) * self.price 
     
     @property
     def toman_total(self):
-        return self.derham * self.total_price 
+        return int(self.derham) * self.total_price 
 
     @property
     def is_valid(self):
