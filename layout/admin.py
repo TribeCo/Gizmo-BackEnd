@@ -7,4 +7,5 @@ admin.site.register(FAQ)
 admin.site.register(FAQGroup)
 admin.site.register(Config)
 admin.site.register(Rule)
+admin.site.register(Ticket)
 #---------------------------
