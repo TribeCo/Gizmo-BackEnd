@@ -46,7 +46,7 @@ message_for_front = {
     "user_not_match" : "این کاربر دسترسی لازم ندارد"
 }
 #---------------------------
-if True:
+if False:
     sandbox = 'sandbox'
 else:
     sandbox = 'www'
@@ -58,7 +58,7 @@ ZP_API_STARTPAY = f"https://{sandbox}.zarinpal.com/pg/StartPay/"
 # amount = 11000  # Rial / Required
 description = "گیزموشاپ"  # Required
 # Important: need to edit for realy server.
-CallbackURL = 'http://localhost:3000/success'
+CallbackURL = 'https://gizmo-shop.ir/success'
 #---------------------------
 class CreateOrderAPIView(APIView):
     """
@@ -212,6 +212,8 @@ class VerifyAPIView(APIView):
         t_status = request.data.get('status')
         t_authority = request.data.get('authority')
 
+        print(f"{t_status}-{t_authority}")
+
         try:
             pay_obj = Payments.objects.get(authority=t_authority)
         except Payments.DoesNotExist:
@@ -239,6 +241,11 @@ class VerifyAPIView(APIView):
             response_dict = json.loads(response.text)
             status = response_dict['Status']
             RefID = response_dict['RefID']
+            print("log pay system(zarinpal):")
+            print(f"responce: {response_dict}")
+            print(f"status: {status}")
+            print(f"RefID: {status}")
+
 
             if status == 100 or status == 101:
                     pay_obj.ref_id = RefID
@@ -272,7 +279,11 @@ class VerifyAPIView(APIView):
                     cart.coupon = None
                     order.authority = t_authority
                     order.ref_id = RefID
+
                     order.save()
+                    print("here")
+
+                    print(order.id)
 
                     for item in cart_items:
                         item.delete()

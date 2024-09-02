@@ -142,7 +142,7 @@ class ProductSliderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ['id','brand_name','slug','name','image1','image2','price','discounted','discounted_price','discount','is_new','net_sale','is_available','send_free','most_color']
+        fields = ['id','brand_name','slug','name','image1','image2','price','discounted','discounted_price','discount','is_new','net_sale','is_available','send_free','most_color','ordered','created']
 #---------------------------
 class ProductSearchSerializer(serializers.ModelSerializer):
     
