@@ -40,16 +40,18 @@ class CreateForeignOrder(APIView):
             return Response({'message': messages_for_front['product_not_found']}, status=status.HTTP_404_NOT_FOUND)
 
         object_currency = Currency()
-        derham_price = int(object_currency.scrape()['AED_currency'].replace(',', ''))
+        derham_price = int(object_currency.scrape()['AED_currency'].replace(',', '')) 
 
         order_product = ForeignOrder(user=request.user,
-        link=product.product_url,price=product.price,
-        discounted=product.discounted,discounted_price=product.discounted_price_int,
+        link=product.product_url,
+        price=product.price,
+        discounted=product.discounted,
+        discounted_price=product.discounted_price_int,
         product=product,name=product.name,
         image=product.image_link,
-        derham = derham_price)
+        derham=derham_price)
 
-        order_product.tracking_code = random.randint(1000000000, 9999999999)
+        order_product.tracking_code = random.randint(10000000, 99999999)
 
         order_product.save()
 
